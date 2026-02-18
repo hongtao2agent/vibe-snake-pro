@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+  <title>Snake Pro 2026</title>
+  <link rel="stylesheet" href="/style.css?v=10" />
+</head>
+<body>
+  <div class="app">
+    <header class="hud">
+      <div class="pill">🐍 Snake Pro</div>
+      <div class="pill">分数 <span id="score">0</span></div>
+      <div class="pill">最高 <span id="best">0</span></div>
+      <button id="pauseBtn" class="pill btn">暂停</button>
+    </header>
+
+    <main class="stage-wrap">
+      <div class="cyber-bg" aria-hidden="true"></div>
+      <canvas id="game" width="420" height="420" aria-label="Snake Game"></canvas>
+      <div id="overlay" class="overlay show">
+        <h1>Snake Pro</h1>
+        <p>滑动屏幕或使用方向键控制</p>
+        <p>🍎普通食物 +10｜⚡加速 +20｜🛡️护盾防撞一次</p>
+        <button id="startBtn">开始游戏</button>
+      </div>
+    </main>
+
+    <section class="controls" aria-label="mobile controls">
+      <div class="top-row">
+        <button data-dir="up">↑</button>
+      </div>
+      <div class="bottom-row">
+        <button data-dir="left">←</button>
+        <button data-dir="down">↓</button>
+        <button data-dir="right">→</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="/game.js?v=10"></script>
+</body>
+</html>

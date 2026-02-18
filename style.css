@@ -1,0 +1,179 @@
+:root {
+  --bg: #0b1020;
+  --panel: #141b34;
+  --text: #e8edff;
+  --accent: #5eead4;
+  --danger: #fb7185;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  background:
+    linear-gradient(rgba(6,10,24,.72), rgba(6,10,24,.78)),
+    radial-gradient(circle at 50% -20%, #223063, var(--bg)),
+    url('/assets/cyber-snake-bg.jpg') center / cover no-repeat;
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", sans-serif;
+}
+.app {
+  max-width: 860px;
+  margin: 0 auto;
+  min-height: 100%;
+  padding: 12px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+}
+.hud {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.pill {
+  background: rgba(20, 27, 52, .85);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.btn { color: var(--text); cursor: pointer; }
+.stage-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.cyber-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background:
+    linear-gradient(rgba(7, 12, 28, .30), rgba(7, 12, 28, .45)),
+    url('/assets/cyber-snake-bg.jpg') center / cover no-repeat;
+  filter: saturate(1.2) contrast(1.05) brightness(.92);
+  z-index: 1;
+  animation: bgPulse 8s ease-in-out infinite alternate;
+}
+.cyber-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(80, 200, 255, .06) 0px,
+      rgba(80, 200, 255, .06) 1px,
+      rgba(0,0,0,0) 3px,
+      rgba(0,0,0,0) 6px
+    );
+  mix-blend-mode: screen;
+  opacity: .45;
+  animation: scanMove 6s linear infinite;
+}
+.cyber-bg::before {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  border-radius: 20px;
+  background: radial-gradient(circle at 20% 20%, rgba(34,211,238,.22), transparent 38%),
+              radial-gradient(circle at 80% 30%, rgba(167,139,250,.20), transparent 35%),
+              radial-gradient(circle at 50% 80%, rgba(94,234,212,.18), transparent 42%);
+  filter: blur(10px);
+  animation: nebulaShift 10s ease-in-out infinite alternate;
+}
+@keyframes bgPulse {
+  0% { transform: scale(1); filter: hue-rotate(0deg) saturate(1.15) brightness(.9); }
+  100% { transform: scale(1.03); filter: hue-rotate(12deg) saturate(1.35) brightness(1); }
+}
+@keyframes scanMove {
+  from { transform: translateY(0); }
+  to { transform: translateY(12px); }
+}
+@keyframes nebulaShift {
+  0% { transform: translate3d(-1%, -1%, 0) scale(1); }
+  100% { transform: translate3d(1%, 1%, 0) scale(1.04); }
+}
+.stage-wrap.fx-shake {
+  animation: shake .25s linear;
+}
+@keyframes shake {
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-3px)}
+  50%{transform:translateX(3px)}
+  75%{transform:translateX(-2px)}
+  100%{transform:translateX(0)}
+}
+canvas {
+  width: min(92vw, 620px);
+  height: min(92vw, 620px);
+  max-height: 70vh;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(13,21,47,.70), rgba(10,17,36,.78));
+  box-shadow: 0 8px 30px rgba(0,0,0,.35), 0 0 24px rgba(34,211,238,.28);
+  border: 1px solid rgba(94,234,212,.28);
+  backdrop-filter: blur(2px);
+  touch-action: none;
+  position: relative;
+  z-index: 2;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: none;
+  place-content: center;
+  text-align: center;
+  gap: 10px;
+  background: rgba(6, 10, 20, .65);
+  border-radius: 14px;
+  backdrop-filter: blur(3px);
+  padding: 18px;
+}
+.overlay.show { display: grid; }
+.overlay button {
+  margin: 6px auto 0;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 0;
+  background: linear-gradient(135deg, #5eead4, #22d3ee);
+  color: #081224;
+  font-weight: 800;
+}
+.controls {
+  justify-self: center;
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: max(12px, env(safe-area-inset-bottom));
+  position: relative;
+  z-index: 999;
+}
+.controls .top-row,
+.controls .bottom-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.controls button {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(20,27,52,.9);
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: transform .06s, background .06s, border-color .06s;
+}
+.controls button:active,
+.controls button.pressed {
+  transform: scale(0.92);
+  background: rgba(94, 234, 212, 0.45);
+  border-color: #5eead4;
+}
+@media (min-width: 900px) { .controls { opacity: .75; } }
