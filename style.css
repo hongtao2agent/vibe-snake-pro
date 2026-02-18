@@ -28,8 +28,10 @@ html, body {
 .hud {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 .pill {
   background: rgba(20, 27, 52, .85);
@@ -37,7 +39,11 @@ html, body {
   border-radius: 999px;
   padding: 8px 12px;
   font-weight: 700;
+  white-space: nowrap;
+  font-size: 14px;
 }
+.pill span { font-variant-numeric: tabular-nums; }
+#pauseBtn { min-width: 60px; text-align: center; }
 .btn { color: var(--text); cursor: pointer; }
 .stage-wrap {
   position: relative;
