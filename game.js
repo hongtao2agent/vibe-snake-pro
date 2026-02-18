@@ -313,12 +313,6 @@
     });
     ctx.globalAlpha = 1;
 
-    // status
-    ctx.fillStyle = 'rgba(255,255,255,.85)';
-    ctx.font = '14px sans-serif';
-    const boostLeft = Math.max(0, Math.ceil((speedBoostUntil - now())/1000));
-    ctx.fillText(`护盾:${shield ? 'ON' : 'OFF'}  加速:${boostLeft}s`, 10, 18);
-
     if (paused) {
       ctx.fillStyle = 'rgba(0,0,0,.45)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
